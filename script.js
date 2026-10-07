@@ -107,11 +107,13 @@
       closeButton.focus();
     };
     galleryImages.forEach(image => {
-      image.tabIndex = 0;
-      image.setAttribute('role', 'button');
-      image.setAttribute('aria-label', `View larger photo: ${image.alt}`);
-      image.addEventListener('click', () => openPhoto(image));
-      image.addEventListener('keydown', event => {
+      const card = image.closest('.gallery-card');
+      if (!card) return;
+      card.tabIndex = 0;
+      card.setAttribute('role', 'button');
+      card.setAttribute('aria-label', `View larger photo: ${image.alt}`);
+      card.addEventListener('click', () => openPhoto(image));
+      card.addEventListener('keydown', event => {
         if (event.key === 'Enter' || event.key === ' ') {
           event.preventDefault();
           openPhoto(image);
