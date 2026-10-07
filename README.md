@@ -1,26 +1,29 @@
 # AYS TILE — static website
 
-A responsive, single-page tile installation website. No build step, paid dependency, tracking library, or server is required.
+A mobile-first, single-page website for AYS TILE. It needs no build step, paid dependency, or server when hosted.
 
 ## Preview locally
 
-Open `index.html` in a browser. For the closest match to hosting behavior, serve this folder with any simple local static server.
+Open `index.html` in a browser. A local static server gives the closest preview of the hosted version.
 
-## Before publishing
+## Current site content
 
-1. Replace `assets/hero-bathroom.svg`, `assets/precision-detail.svg`, and `assets/project-*.svg` with AYS TILE project photographs. Keep the filenames or update the references. Remove each “SAMPLE VISUAL” badge after replacing the gallery sample art.
-2. Add the real business phone, email, and confirmed service area in `config.js`. Set `phoneLink` to the dialable phone number to enable click-to-call. The contact form opens the visitor’s email app (`mailto:`); a static site has no form backend. For direct submissions, connect a form service or backend later.
-3. Replace `[YOUR SERVICE AREA]`, `[Business email]`, and related sample contact text in `index.html`. Add the real logo if available; the current wordmark is text.
-4. Review all copy and project details with the business owner. No claims about years, reviews, credentials, or service coverage are included.
+- The hero, What We Do, and Built with Precision sections use the supplied AYS TILE photos.
+- The project reel includes bathroom, shower, kitchen, pathway, outdoor steps, and custom floor photos.
+- `config.js` contains the supplied phone number, email, and Greater Seattle Area service area.
+- The estimate form uses `mailto:` and opens the visitor’s email app; receiving submissions automatically requires a separate form service or backend.
 
-## Publish for free
+Replace photos in `assets/` when you have updated project images. Keep the existing filenames or update the matching image paths in `index.html`.
 
-### GitHub Pages
+## Publish with GitHub Pages
 
-Upload the contents of this folder to a GitHub repository (or a repository’s `docs` folder), then enable Pages in repository settings and select the matching branch/folder. Publish `index.html` at the selected site root.
+1. Extract `AYS-TILE-GitHub-Update.zip`.
+2. Upload the **contents inside the extracted folder** to the repository’s top level. `index.html` should be visible alongside `styles.css`, `script.js`, `config.js`, and the `assets` folder. Do not put these files inside another `ays-tile-site` folder when Pages is set to publish the repository root.
+3. In the repository’s **Settings → Pages**, select the `main` branch and `/ (root)` as the publishing source.
+4. After GitHub finishes publishing, open the Pages address shown on that settings page.
 
-### Cloudflare Pages
+Keep the `assets` folder and its contents together with the site files. This package contains no build step.
 
-Create a Pages project from the repository, choose the static/“None” framework option, leave the build command blank, and set the output directory to `/` if this folder is the repository root. No build is needed.
+## Cloudflare Pages
 
-The site uses local SVG artwork and remains functional if optional Google Fonts cannot load; it falls back to system fonts.
+Connect the repository, select the static/“None” framework option, leave the build command blank, and use `/` as the output directory when the site files are at the repository root.

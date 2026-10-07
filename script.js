@@ -37,7 +37,27 @@
       }
     });
   }
-  const form = document.getElementById('estimate-form');
+  const galleryTrack = document.getElementById('gallery-track');
+  const galleryControls = document.querySelectorAll('[data-gallery-step]');
+  if (galleryTrack && galleryControls.length) {
+    const updateGalleryControls = () => {
+      const lastPosition = galleryTrack.scrollWidth - galleryTrack.clientWidth;
+      galleryControls.forEach(button => {
+        const direction = Number(button.dataset.galleryStep);
+        button.disabled = direction < 0 ? galleryTrack.scrollLeft <= 2 : galleryTrack.scrollLeft >= lastPosition - 2;
+      });
+    };
+    galleryControls.forEach(button => button.addEventListener('click', () => {
+      const card = galleryTrack.querySelector('.gallery-card');
+      if (!card) return;
+      const gap = parseFloat(getComputedStyle(galleryTrack).columnGap) || 18;
+      const direction = Number(button.dataset.galleryStep);
+      galleryTrack.scrollBy({ left: direction * (card.getBoundingClientRect().width + gap), behavior: 'smooth' });
+    }));
+    galleryTrack.addEventListener('scroll', updateGalleryControls, { passive: true });
+    window.addEventListener('resize', updateGalleryControls);
+    updateGalleryControls();
+  }  const form = document.getElementById('estimate-form');
   const notice = document.getElementById('form-notice');
   if (form) form.addEventListener('submit', event => {
     event.preventDefault();
@@ -49,7 +69,12 @@
     const data = new FormData(form);
     const subject = encodeURIComponent(`AYS TILE estimate request — ${data.get('project')}`);
     const body = encodeURIComponent(`Name: ${data.get('name')}\nPhone: ${data.get('phone') || 'Not provided'}\nEmail: ${data.get('email')}\nProject type: ${data.get('project')}\n\n${data.get('message') || ''}`);
-    window.location.href = `mailto:${config.businessEmail}?subject=${subject}&body=${body}`;
-    notice.textContent = 'Your email app should open with the request ready to send.';
+    const emailDraft = document.createElement('a');
+    const recipient = encodeURIComponent(config.businessEmail);
+    emailDraft.href = `https://mail.google.com/mail/?view=cm&fs=1&to=${recipient}&su=${subject}&body=${body}`;
+    emailDraft.target = '_blank';
+    emailDraft.rel = 'noopener';
+    emailDraft.click();
+    notice.textContent = 'Gmail should open in a new tab with your request ready to send.';
   });
 })();
