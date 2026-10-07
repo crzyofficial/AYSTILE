@@ -11,7 +11,7 @@ Open `index.html` in a browser. A local static server gives the closest preview 
 - The hero, What We Do, and Built with Precision sections use the supplied AYS TILE photos.
 - The project reel includes bathroom, shower, kitchen, pathway, outdoor steps, and custom floor photos.
 - `config.js` contains the supplied phone number, email, and Greater Seattle Area service area.
-- The estimate form uses `mailto:` and opens the visitor’s email app; receiving submissions automatically requires a separate form service or backend.
+- The estimate form opens a prefilled Gmail compose page on desktop and a prefilled draft through the phone email app on mobile. Visitors press Send; automatic submissions require a separate form service or backend.
 
 Replace photos in `assets/` when you have updated project images. Keep the existing filenames or update the matching image paths in `index.html`.
 

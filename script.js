@@ -71,10 +71,15 @@
     const body = encodeURIComponent(`Name: ${data.get('name')}\nPhone: ${data.get('phone') || 'Not provided'}\nEmail: ${data.get('email')}\nProject type: ${data.get('project')}\n\n${data.get('message') || ''}`);
     const emailDraft = document.createElement('a');
     const recipient = encodeURIComponent(config.businessEmail);
-    emailDraft.href = `https://mail.google.com/mail/?view=cm&fs=1&to=${recipient}&su=${subject}&body=${body}`;
+    const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+    emailDraft.href = isMobile
+      ? `mailto:${recipient}?subject=${subject}&body=${body}`
+      : `https://mail.google.com/mail/?view=cm&fs=1&to=${recipient}&su=${subject}&body=${body}`;
     emailDraft.target = '_blank';
     emailDraft.rel = 'noopener';
     emailDraft.click();
-    notice.textContent = 'Gmail should open in a new tab with your request ready to send.';
+    notice.textContent = isMobile
+      ? 'Your email app should open with the request ready to send.'
+      : 'Gmail should open in a new tab with your request ready to send.';
   });
 })();
