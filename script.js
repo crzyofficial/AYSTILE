@@ -82,4 +82,45 @@
       ? 'Your email app should open with the request ready to send.'
       : 'Gmail should open in a new tab with your request ready to send.';
   });
+  const galleryImages = document.querySelectorAll('#gallery-track .gallery-card img');
+  if (galleryImages.length) {
+    const lightbox = document.createElement('dialog');
+    lightbox.className = 'photo-lightbox';
+    lightbox.setAttribute('aria-label', 'Expanded project photo');
+    const closeButton = document.createElement('button');
+    closeButton.className = 'photo-lightbox-close';
+    closeButton.type = 'button';
+    closeButton.setAttribute('aria-label', 'Close enlarged photo');
+    closeButton.textContent = '×';
+    const enlargedImage = document.createElement('img');
+    const caption = document.createElement('p');
+    caption.className = 'photo-lightbox-caption';
+    lightbox.append(closeButton, enlargedImage, caption);
+    document.body.append(lightbox);
+
+    const openPhoto = image => {
+      enlargedImage.src = image.currentSrc || image.src;
+      enlargedImage.alt = image.alt;
+      const cardCaption = image.closest('.gallery-card')?.querySelector('figcaption');
+      caption.textContent = cardCaption ? cardCaption.innerText.replace(/\s+/g, ' ').trim() : image.alt;
+      lightbox.showModal();
+      closeButton.focus();
+    };
+    galleryImages.forEach(image => {
+      image.tabIndex = 0;
+      image.setAttribute('role', 'button');
+      image.setAttribute('aria-label', `View larger photo: ${image.alt}`);
+      image.addEventListener('click', () => openPhoto(image));
+      image.addEventListener('keydown', event => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          openPhoto(image);
+        }
+      });
+    });
+    closeButton.addEventListener('click', () => lightbox.close());
+    lightbox.addEventListener('click', event => {
+      if (event.target === lightbox) lightbox.close();
+    });
+  }
 })();

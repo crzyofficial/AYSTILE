@@ -17,3 +17,14 @@
 .gallery-bathroom img{object-position:center 66%}
 
 .gallery-pathway img{object-position:center 64%}.gallery-custom-steps img{object-position:center 54%}.gallery-custom-floor img{object-position:center 60%}
+
+/* Expandable gallery photo viewer */
+.photo-lightbox{position:fixed;inset:0;margin:auto;padding:54px 22px 20px;width:min(96vw,1320px);max-width:none;max-height:94dvh;overflow:hidden;border:1px solid rgba(232,210,174,.35);background:#11120f;color:#fff;box-shadow:0 24px 90px rgba(0,0,0,.55)}
+.photo-lightbox::backdrop{background:rgba(9,10,9,.88);backdrop-filter:blur(4px)}
+.photo-lightbox img{display:block;width:auto;height:auto;max-width:100%;max-height:calc(94dvh - 110px);object-fit:contain;margin:0 auto}
+.photo-lightbox-close{position:absolute;top:10px;right:12px;display:grid;place-items:center;width:38px;height:38px;border:1px solid rgba(255,255,255,.48);border-radius:50%;background:rgba(0,0,0,.45);color:#fff;font:300 28px/1 Arial,sans-serif;cursor:pointer}
+.photo-lightbox-close:hover,.photo-lightbox-close:focus-visible{background:#d5b27c;color:#171815;outline:2px solid #fff;outline-offset:2px}
+.photo-lightbox-caption{margin:12px auto 0;text-align:center;color:#eee8dd;font-size:12px;letter-spacing:.07em;text-transform:uppercase}
+.gallery-card img[role=button]{cursor:zoom-in}
+.gallery-card img[role=button]:focus-visible{outline:3px solid #d5b27c;outline-offset:3px}
+@media(max-width:600px){.photo-lightbox{padding:52px 10px 14px;width:100vw;max-width:100vw;max-height:94dvh;border-left:0;border-right:0}.photo-lightbox img{max-width:100%;max-height:calc(94dvh - 100px)}.photo-lightbox-caption{font-size:10px;line-height:1.5}}
